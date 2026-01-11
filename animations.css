@@ -1,0 +1,28 @@
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes letterReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ripple { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+@keyframes weave { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+.logo-svg { animation: spin 20s linear infinite; }
+.float { animation: float 6s ease-in-out infinite; }
+
+section { opacity: 0; transform: translateY(50px); }
+section.visible { animation: fadeInUp 1s ease forwards; }
+
+.tagline span { display: inline-block; animation: letterReveal 0.5s ease forwards; opacity: 0; }
+.tagline span:nth-child(1) { animation-delay: 0.2s; }
+.tagline span:nth-child(2) { animation-delay: 0.8s; }
+
+.yarn-divider path { animation: weave 10s linear infinite; }
+
+.product-card { position: relative; overflow: hidden; }
+.product-card::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.5s;
+}
+.product-card:hover::before { left: 100%; }
+
+.expertise-card svg { width: 60px; height: 60px; animation: spin 2s linear infinite; }
+
+.cursor-glow { position: fixed; width: 20px; height: 20px; background: radial-gradient(circle, var(--secondary), transparent); border-radius: 50%; pointer-events: none; z-index: 9999; mix-blend-mode: overlay; transition: transform 0.1s; }

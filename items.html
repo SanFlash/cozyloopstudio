@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Shop - CozyLoop Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <style>
+        .items-header {
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--light-bg) 100%);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            margin-top: 60px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .items-header h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.3px;
+        }
+
+        .items-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .items-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 20px;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #F8F6F3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--secondary);
+        }
+
+        .item-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-category {
+            color: var(--secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-name {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .item-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+            margin-bottom: 1rem;
+        }
+
+        .item-price {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .item-action {
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .item-action:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .no-items {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .no-items-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-items p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .no-items a {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .no-items a:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--border);
+            background: white;
+            color: var(--text-dark);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .items-header {
+                padding: 6rem 0 2rem;
+            }
+
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .item-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <svg class="logo-svg" viewBox="0 0 100 100">
+                    <path d="M20 50 Q 50 20 80 50 Q 50 80 20 50" fill="none" stroke="#6B5B4A" stroke-width="4"/>
+                    <text x="50" y="55" text-anchor="middle" font-size="12" fill="#6B5B4A">CozyLoop</text>
+                </svg>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="items.html">Shop</a></li>
+                <li><a href="index.html#custom">Custom Orders</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="items-header"
+     style="
+        position:relative;
+        background:linear-gradient(135deg,#ffffff 0%,#f4ede7 100%);
+        padding:9rem 1rem 4.5rem;
+        text-align:center;
+        margin-top:60px;
+        overflow:hidden;
+     ">
+
+    <!-- Soft animated glow -->
+    <div style="
+        position:absolute;
+        inset:0;
+        background:radial-gradient(circle at top,rgba(255,143,177,0.25),transparent 60%);
+        animation:headerGlow 10s ease-in-out infinite alternate;
+        z-index:0;
+    "></div>
+
+    <h1 style="
+        position:relative;
+        z-index:1;
+        font-size:clamp(2.4rem,4.5vw,3.6rem);
+        font-weight:900;
+        margin-bottom:1rem;
+        color:#6b5b4a;
+        letter-spacing:-0.5px;
+        animation:titleSlide 0.9s ease forwards;
+    ">
+        Our Shop
+    </h1>
+
+    <p style="
+        position:relative;
+        z-index:1;
+        font-size:1.1rem;
+        max-width:620px;
+        margin:0 auto;
+        color:#777;
+        line-height:1.7;
+        animation:subtitleFade 1.2s ease forwards;
+    ">
+        Browse our complete collection of handcrafted items added by our team
+    </p>
+
+    <!-- Bottom divider -->
+    <div style="
+        position:absolute;
+        bottom:0;
+        left:0;
+        width:100%;
+        height:4px;
+        background:linear-gradient(to right,#ff8fb1,#ff5d8f);
+    "></div>
+
+    <!-- Inline animations -->
+    <style>
+        @keyframes titleSlide {
+            from { opacity:0; transform:translateY(-20px); }
+            to { opacity:1; transform:translateY(0); }
+        }
+        @keyframes subtitleFade {
+            from { opacity:0; transform:translateY(15px); }
+            to { opacity:1; transform:translateY(0); }
+        }
+        @keyframes headerGlow {
+            from { opacity:0.4; }
+            to { opacity:0.9; }
+        }
+    </style>
+</div>
+
+
+    <div class="items-container"
+     style="
+        max-width:1200px;
+        margin:0 auto;
+        padding:3.5rem 20px 4rem;
+        position:relative;
+     ">
+
+    <!-- Category Filter Wrapper -->
+    <div class="category-filter" id="categoryFilter"
+         style="
+            display:flex;
+            gap:1rem;
+            flex-wrap:wrap;
+            justify-content:center;
+            margin-bottom:3rem;
+            animation:filterReveal 0.8s ease forwards;
+         ">
+    </div>
+
+    <!-- Items Grid Wrapper -->
+    <div class="items-grid" id="itemsGrid"
+         style="
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+            gap:2.2rem;
+            animation:gridFade 0.9s ease forwards;
+         ">
+    </div>
+
+    <!-- Inline Animations -->
+    <style>
+        @keyframes filterReveal {
+            from { opacity:0; transform:translateY(-12px); }
+            to { opacity:1; transform:translateY(0); }
+        }
+
+        @keyframes gridFade {
+            from { opacity:0; transform:translateY(20px); }
+            to { opacity:1; transform:translateY(0); }
+        }
+    </style>
+
+</div>
+
+    <script src="db.js"></script>
+    <script>
+        let allProducts = [];
+        let activeCategory = 'All';
+
+        async function loadItems() {
+            allProducts = await db.getProducts();
+            displayItems();
+            loadCategoryFilters();
+        }
+
+        function displayItems() {
+            const grid = document.getElementById('itemsGrid');
+            
+            let filteredProducts = allProducts;
+            if (activeCategory !== 'All') {
+                filteredProducts = allProducts.filter(p => p.category === activeCategory);
+            }
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1;">
+                        <div class="no-items">
+                            <div class="no-items-icon">📦</div>
+                            <p>${activeCategory === 'All' ? 'No products available yet.' : `No products in ${activeCategory} yet.`}</p>
+                            <a href="index.html#custom">Request a Custom Item</a>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filteredProducts.map(product => {
+                const emoji = getEmojiForCategory(product.category);
+                return `
+                    <div class="item-card">
+                        <div class="item-image">${emoji}</div>
+                        <div class="item-content">
+                            <div class="item-category">${product.category}</div>
+                            <h3 class="item-name">${product.name}</h3>
+                            <p class="item-description">${product.description}</p>
+                            ${product.price ? `<div class="item-price">₹${product.price}</div>` : ''}
+                            <button class="item-action" onclick="requestCustom('${product.name}')">Customize This Item</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getEmojiForCategory(category) {
+            const emojiMap = {
+                'Scrunchies': '🎀',
+                'Gloves': '🧤',
+                'Blankets': '🛏️',
+                'Hats': '🧢',
+                'Scarves': '🧣',
+                'Socks': '🧦',
+                'Sweaters': '🧶',
+                'Default': '🎁'
+            };
+            return emojiMap[category] || emojiMap['Default'];
+        }
+
+        function loadCategoryFilters() {
+            const categories = ['All', ...new Set(allProducts.map(p => p.category))];
+            const filterContainer = document.getElementById('categoryFilter');
+            
+            filterContainer.innerHTML = categories.map(cat => `
+                <button class="filter-btn ${cat === activeCategory ? 'active' : ''}" onclick="filterByCategory('${cat}')">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function filterByCategory(category) {
+            activeCategory = category;
+            displayItems();
+            loadCategoryFilters();
+        }
+
+        function requestCustom(itemName) {
+            // Scroll to custom form on index.html or navigate
+            alert(`Navigate to Custom Orders and mention you want to customize: ${itemName}`);
+            window.location.href = 'index.html#custom';
+        }
+
+        // Load items when page loads
+        window.addEventListener('load', loadItems);
+    </script>
+</body>
+</html>
